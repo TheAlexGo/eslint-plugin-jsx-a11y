@@ -39,6 +39,10 @@ const defaultInteractiveProps = [].concat(
 );
 const schema = generateObjSchema({
   handlers: arraySchema,
+  message: {
+    description: 'Custom error message',
+    type: 'string',
+  },
 });
 
 export default ({
@@ -61,6 +65,7 @@ export default ({
         const {
           allowExpressionValues,
           handlers = defaultInteractiveProps,
+          message = errorMessage,
         } = (options[0] || {});
 
         const hasInteractiveProps = handlers
@@ -117,7 +122,7 @@ export default ({
         // Visible, non-interactive elements should not have an interactive handler.
         context.report({
           node,
-          message: errorMessage,
+          message,
         });
       },
     };

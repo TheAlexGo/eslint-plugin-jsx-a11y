@@ -35,6 +35,10 @@ const schema = generateObjSchema({
     type: 'integer',
     minimum: 0,
   },
+  message: {
+    description: 'Custom error message',
+    type: 'string',
+  },
 });
 
 export default ({
@@ -54,6 +58,7 @@ export default ({
       controlComponents = [],
       ignoreElements = [],
       ignoreRoles = [],
+      message = errorMessage,
     } = options;
 
     const newIgnoreElements = new Set([].concat(ignoreElements, ignoreList));
@@ -107,7 +112,7 @@ export default ({
       if (!hasAccessibleLabel) {
         context.report({
           node: node.openingElement,
-          message: errorMessage,
+          message,
         });
       }
     };
